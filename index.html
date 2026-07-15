@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+  <meta
+    name="description"
+    content="نمایش اطلاعات عمومی و موقعیت تقریبی IPv4 و IPv6"
+  >
+
+  <title>IP Scanner - ابزار بررسی IP</title>
+
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  >
+  <link rel="stylesheet" href="style.css">
+
+  <script
+    defer
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+  ></script>
+  <script defer src="script.js"></script>
+</head>
+
+<body>
+  <header class="hero">
+    <div class="hero__content">
+      <div class="hero__badge">IP OSINT</div>
+
+      <h1>بررسی اطلاعات IP</h1>
+
+      <p>
+        نمایش اطلاعات عمومی IPv4 و IPv6، موقعیت تقریبی، ISP،
+        ASN، Reverse DNS و وضعیت امنیتی
+      </p>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="search-panel">
+      <form id="ip-form" novalidate>
+        <label for="ip-input">آدرس IP</label>
+
+        <div class="search-row">
+          <input
+            id="ip-input"
+            name="ip"
+            type="text"
+            inputmode="text"
+            autocomplete="off"
+            spellcheck="false"
+            placeholder="مثال: 8.8.8.8 یا 2001:4860:4860::8888"
+          >
+
+          <button id="search-button" type="submit">
+            بررسی IP
+          </button>
+
+          <button
+            id="my-ip-button"
+            class="secondary-button"
+            type="button"
+          >
+            IP من
+          </button>
+        </div>
+
+        <p class="input-help">
+          برای شناسایی IP فعلی، ورودی را خالی بگذارید یا روی «IP من» بزنید.
+        </p>
+      </form>
+
+      <div
+        id="status"
+        class="status"
+        role="status"
+        aria-live="polite"
+      ></div>
+    </section>
+
+    <section id="result" class="result hidden">
+      <div class="result-header">
+        <div>
+          <span class="section-label">نتیجه بررسی</span>
+          <h2 id="result-ip">—</h2>
+        </div>
+
+        <button
+          id="copy-button"
+          class="copy-button"
+          type="button"
+        >
+          کپی اطلاعات
+        </button>
+      </div>
+
+      <div id="info-grid" class="info-grid"></div>
+
+      <section class="security-section">
+        <div class="section-heading">
+          <div>
+            <span class="section-label">Security</span>
+            <h2>وضعیت شبکه</h2>
+          </div>
+        </div>
+
+        <div id="security-grid" class="security-grid"></div>
+      </section>
+
+      <section class="map-section">
+        <div class="section-heading">
+          <div>
+            <span class="section-label">Approximate location</span>
+            <h2>موقعیت تقریبی روی نقشه</h2>
+          </div>
+
+          <a
+            id="osm-link"
+            class="map-link hidden"
+            href="#"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            باز کردن در OpenStreetMap
+          </a>
+        </div>
+
+        <div id="map"></div>
+
+        <p class="map-notice">
+          موقعیت نمایش‌داده‌شده براساس پایگاه داده IP است و می‌تواند
+          با موقعیت واقعی کاربر یا مرکز شبکه فاصله داشته باشد.
+        </p>
+      </section>
+
+      <section class="raw-section">
+        <details>
+          <summary>نمایش پاسخ خام API</summary>
+          <pre id="raw-output"></pre>
+        </details>
+      </section>
+    </section>
+
+    <section class="notice">
+      <h2>حریم خصوصی و محدودیت‌ها</h2>
+
+      <p>
+        این ابزار فقط اطلاعات عمومی ثبت‌شده برای یک IP را نمایش می‌دهد.
+        IP Geolocation موقعیت لحظه‌ای، آدرس منزل یا GPS دستگاه را مشخص
+        نمی‌کند. نتیجه VPN، Proxy، Tor و Hosting نیز ممکن است همیشه دقیق
+        یا در API رایگان موجود نباشد.
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <p>
+      داده‌های موقعیت از سرویس‌های عمومی و نقشه از OpenStreetMap دریافت
+      می‌شود.
+    </p>
+  </footer>
+</body>
+</html>
